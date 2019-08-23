@@ -23,23 +23,6 @@ for el in soup.find_all("table", {"id": "cc-table"}):
 browser.quit()
 '''
 
-'''
-#This code actually requests from google finance but it throws an xpath error
-from lxml import html
-import requests
-import time
-
-def parse(ticker):
-    url = "http://www.google.com/finance?q=%s"%(ticker)
-    response = requests.get(url, verify=False)
-    parser = html.fromstring(response.content)
-    price0 = parser.xpath('<span class="IsqQVc NprOob iyOsi8pI_fTE-zJFzKq8ukm8">47.33</span>')[0].text_content().strip()
-    print(price0)
-parse('ATVI')
-'''
-
-
- 
 # yfinance is yahoo finance, its a package that easily grabs stock data
 import yfinance as yf #yiff yiff 
 from datetime import timedelta, date
@@ -68,7 +51,8 @@ plt.show()
 TodaysClose = int(data['Close'].values[-1])
 print('ATVI closed at ' + str(TodaysClose) + ' today.')
 
-webhook_url = "<https://hooks.slack.com/services/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>"
+#you would create a app on slack and use your own webhook
+webhook_url = "https://hooks.slack.com/services/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"
 
 @slack_sender(webhook_url=webhook_url, channel="<general>")
 def train():
